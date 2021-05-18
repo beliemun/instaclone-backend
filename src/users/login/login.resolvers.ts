@@ -19,9 +19,7 @@ export default {
           error: "Incorrect password.",
         };
       }
-      const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-        expiresIn: "14d",
-      });
+      const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY);
       return {
         ok: true,
         token,

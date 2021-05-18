@@ -5,3 +5,8 @@ export type Resolvers = {
     [key: string]: Resolver;
   };
 };
+
+export interface IVerifiedToken {
+  id: number;
+  iat: number;
+}

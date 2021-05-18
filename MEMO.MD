@@ -4,3 +4,4 @@
 - Prisma Schema, GraphQL Schema, Query, Mutation은 항상 같은 방식으로 작동한다.
 - findUnique는 유니크로 지정된 필드만 검색이 가능하다.
 - token은 비밀정보를 보관하는 것이 아니다. 토큰은 정보를 넣고 다른 사용자가 정보를 변경하지 못하게 함이다. 그 토큰을 우리가 싸인했는지 확인하는 것이 중요하다.
+- DB 업데이트 시 undefined를 보내면 Prisma는 DB에 반영하지 않는다.

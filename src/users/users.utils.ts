@@ -1,0 +1,33 @@
+import * as jwt from "jsonwebtoken";
+import client from "../client";
+import { IVerifiedToken, Resolver, Resolvers } from "../types";
+
+export const getLoggedInUser = async (token: string) => {
+  try {
+    if (!token) {
+      return null;
+    }
+    const { id } = jwt.verify(token, process.env.SECRET_KEY) as IVerifiedToken;
+    const user = await client.user.findUnique({ where: { id } });
+    if (user) {
+      return user;
+    } else {
+      return null;
+    }
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
+};
+
+export const protectResolver =
+  (resolver: Resolver): Resolver =>
+  (root, args, context, info) => {
+    if (!context.loggedInUser) {
+      return {
+        ok: false,
+        error: "Please log in to perform this action",
+      };
+    }
+    return resolver(root, args, context, info);
+  };

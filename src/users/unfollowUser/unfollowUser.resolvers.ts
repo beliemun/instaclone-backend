@@ -15,7 +15,7 @@ const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
     },
     data: {
       followings: {
-        connect: {
+        disconnect: {
           userName,
         },
       },
@@ -28,6 +28,6 @@ const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
 
 export default {
   Mutation: {
-    followUser: protectedResolver(resolverFn),
+    unfollowUser: protectedResolver(resolverFn),
   },
 };

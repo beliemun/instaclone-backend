@@ -1,12 +1,12 @@
 import { gql } from "apollo-server-core";
 
 export default gql`
-  type FollowerUserResult {
+  type UnfollowerUserResult {
     ok: Boolean!
     error: String
   }
 
   type Mutation {
-    followUser(userName: String!): FollowerUserResult
+    unfollowUser(userName: String!): UnfollowerUserResult
   }
 `;

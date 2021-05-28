@@ -6,7 +6,7 @@ import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getLoggedInUser, protectedResolver } from "./users/users.utils";
 
-const server = new ApolloServer({
+const apollo = new ApolloServer({
   typeDefs,
   resolvers,
   context: async ({ req }) => ({
@@ -19,7 +19,8 @@ const PORT = process.env.PORT;
 
 const app = express();
 app.use(logger("tiny"));
-server.applyMiddleware({ app });
+apollo.applyMiddleware({ app });
+app.use("/static", express.static("uploads"));
 app.listen({ port: PORT }, () =>
   console.log(`🚀 Server is runing on http://localhost:${PORT}/`)
 );

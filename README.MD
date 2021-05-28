@@ -7,10 +7,10 @@ Instaclone Backend.
 - [x] Create Account > Mutation
 - [x] See Profile > Query
 - [x] Login
-- [ ] Edit Profile
+- [x] Edit Profile
+- [x] Change Avatar (Image Upload)
 - [ ] Follow User
 - [ ] Unfollow User
-- [ ] Change Avatar (Image Upload)
 - [ ] Follow User
 - [ ] Unfollow User
 - [ ] Search Uses

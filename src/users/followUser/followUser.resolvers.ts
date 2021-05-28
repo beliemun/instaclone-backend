@@ -2,7 +2,10 @@ import client from "../../client";
 import { protectedResolver } from "../users.utils";
 
 const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
-  const existingUser = await client.user.findUnique({ where: { userName } });
+  const existingUser = await client.user.findUnique({
+    where: { userName },
+    select: { id: true },
+  });
   if (!existingUser) {
     return {
       ok: false,

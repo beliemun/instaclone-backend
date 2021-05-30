@@ -1,12 +1,12 @@
 import * as bcrypt from "bcrypt";
-import client from "../../client";
 import { protectedResolver } from "../users.utils";
 import { createWriteStream } from "fs";
+import { Resolver } from "../../types";
 
-const resolverFn = async (
-  _: any,
+const resolver: Resolver = async (
+  _,
   { firstName, lastName, userName, email, password, bio, avatar },
-  { loggedInUser }
+  { loggedInUser, client }
 ) => {
   let avatarUrl = null;
   if (avatar) {
@@ -51,6 +51,6 @@ const resolverFn = async (
 
 export default {
   Mutation: {
-    editProfile: protectedResolver(resolverFn),
+    editProfile: protectedResolver(resolver),
   },
 };

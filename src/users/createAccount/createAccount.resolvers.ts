@@ -1,11 +1,12 @@
-import client from "../../client";
 import * as bcrypt from "bcrypt";
+import { Resolvers } from "../../types";
 
-export default {
+const resolvers: Resolvers = {
   Mutation: {
     createAccount: async (
       _: any,
-      { firstName, lastName, userName, email, password }
+      { firstName, lastName, userName, email, password },
+      { client }
     ) => {
       try {
         const existingUser = await client.user.findFirst({
@@ -37,3 +38,5 @@ export default {
     },
   },
 };
+
+export default resolvers;

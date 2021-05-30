@@ -1,9 +1,8 @@
-import { forwardArgsToSelectionSet } from "@graphql-tools/stitch";
-import client from "../../client";
+import { Resolvers } from "../../types";
 
-export default {
+const resolvers: Resolvers = {
   Query: {
-    seeFollowers: async (_: any, { userName, page }) => {
+    seeFollowers: async (_: any, { userName, page }, { client }) => {
       const ok = await client.user.findUnique({
         where: { userName },
         select: { id: true },
@@ -34,3 +33,5 @@ export default {
     },
   },
 };
+
+export default resolvers;

@@ -1,7 +1,11 @@
-import client from "../../client";
+import { Resolver } from "../../types";
 import { protectedResolver } from "../users.utils";
 
-const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
+const resolver: Resolver = async (
+  _: any,
+  { userName },
+  { loggedInUser, client }
+) => {
   const existingUser = await client.user.findUnique({
     where: { userName },
     select: { id: true },
@@ -10,6 +14,11 @@ const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
     return {
       ok: false,
       error: "That user does not exist.",
+    };
+  } else if (existingUser.id === loggedInUser.id) {
+    return {
+      ok: false,
+      error: "Can not follow yourself.",
     };
   }
   await client.user.update({
@@ -31,6 +40,6 @@ const resolverFn = async (_: any, { userName }, { loggedInUser }) => {
 
 export default {
   Mutation: {
-    followUser: protectedResolver(resolverFn),
+    followUser: protectedResolver(resolver),
   },
 };

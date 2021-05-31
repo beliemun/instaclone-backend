@@ -1,3 +1,4 @@
+import * as e from "express";
 import * as jwt from "jsonwebtoken";
 import client from "../client";
 import { IVerifiedToken, Resolvers, Resolver } from "../types";
@@ -24,10 +25,15 @@ export const protectedResolver =
   (resolver: Resolver): Resolver =>
   (root, args, context, info) => {
     if (!context.loggedInUser) {
-      return {
-        ok: false,
-        error: "Please log in to perform this action.",
-      };
+      const query = info.operation.operation === "query";
+      if (query) {
+        return null;
+      } else {
+        return {
+          ok: false,
+          error: "Please log in to perform this action.",
+        };
+      }
     }
     return resolver(root, args, context, info);
   };

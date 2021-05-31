@@ -26,6 +26,6 @@ const resolver: Resolver = async (_, __, { loggedInUser, client }) =>
 
 export default {
   Query: {
-    seeFeed: resolver,
+    seeFeed: protectedResolver(resolver),
   },
 };

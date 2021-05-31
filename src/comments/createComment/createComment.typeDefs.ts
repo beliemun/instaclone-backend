@@ -1,11 +1,11 @@
 import { gql } from "apollo-server-core";
 
 export default gql`
-  type EditPhotoResult {
+  type CreateCommentResult {
     ok: Boolean!
     error: String
   }
   type Mutation {
-    editPhoto(id: Int!, caption: String!): EditPhotoResult!
+    createComment(photoId: Int!, text: String!): CreateCommentResult!
   }
 `;

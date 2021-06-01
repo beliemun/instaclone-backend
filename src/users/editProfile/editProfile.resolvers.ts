@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { protectedResolver } from "../users.utils";
-import { createWriteStream } from "fs";
 import { Resolver } from "../../types";
+import { uploadToS3 } from "../../shared/shared.utils";
 
 const resolver: Resolver = async (
   _,
@@ -10,14 +10,7 @@ const resolver: Resolver = async (
 ) => {
   let avatarUrl = null;
   if (avatar) {
-    const { filename, createReadStream } = await avatar;
-    const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
-    const readStream = createReadStream();
-    const writeStream = createWriteStream(
-      process.cwd() + "/uploads/" + newFilename
-    );
-    readStream.pipe(writeStream);
-    avatarUrl = `http://localhost:4000/static/${newFilename}`;
+    avatarUrl = await uploadToS3(avatar, loggedInUser.id, "avatars");
   }
   let hashedPassword = null;
   if (password) {

@@ -13,7 +13,7 @@ const resolvers: Resolvers = {
     likes: ({ id }, _, { client }) =>
       client.like.count({ where: { photoId: id } }),
     comments: ({ id }, _, { client }) =>
-      client.comment.count({ where: { id } }),
+      client.comment.count({ where: { photoId: id } }),
     isMine: ({ userId }, _, { loggedInUser, client }) =>
       loggedInUser ? userId === loggedInUser.id : false,
   },

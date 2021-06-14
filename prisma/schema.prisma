@@ -32,8 +32,8 @@ model User {
 
 model Photo {
   id        Int       @id @default(autoincrement())
-  user      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
+  user      User      @relation(fields: [userId], references: [id])
+  userId    Int
   file      String
   caption   String?
   hashtags  Hashtag[]

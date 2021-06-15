@@ -8,6 +8,13 @@ const resolver: Resolver = (_, { id }, { client }) =>
     orderBy: {
       createdAt: "asc",
     },
+    include: {
+      user: {
+        select: {
+          userName: true,
+        },
+      },
+    },
   });
 
 export default {

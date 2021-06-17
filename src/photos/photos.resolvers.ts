@@ -10,7 +10,7 @@ const resolvers: Resolvers = {
       client.user.findUnique({ where: { id: userId } }),
     hashtags: ({ id }, _, { client }) =>
       client.hashtag.findMany({ where: { photos: { some: { id } } } }),
-    likes: ({ id }, _, { client }) =>
+    likeCount: ({ id }, _, { client }) =>
       client.like.count({ where: { photoId: id } }),
     comments: ({ id }, _, { client }) =>
       client.comment.findMany({

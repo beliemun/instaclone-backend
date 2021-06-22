@@ -5,7 +5,7 @@ const resolvers: Resolvers = {
     seeProfile: (_: any, { userName }, { client }) =>
       client.user.findUnique({
         where: { userName },
-        include: { followings: true, followers: true },
+        include: { following: true, followers: true },
       }),
   },
 };

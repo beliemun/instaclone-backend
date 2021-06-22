@@ -20,7 +20,7 @@ const resolvers: Resolvers = {
           take: 5,
         });
       const totalFollowers = await client.user.count({
-        where: { followings: { some: { userName } } },
+        where: { following: { some: { userName } } },
       });
       return {
         ok: true,
@@ -28,7 +28,7 @@ const resolvers: Resolvers = {
         totalPages: Math.ceil(totalFollowers / 5),
       };
       //   const bFollowers = await client.user.findMany({
-      //     where: { followings: { some: { userName } } },
+      //     where: { following: { some: { userName } } },
       //   });
     },
   },

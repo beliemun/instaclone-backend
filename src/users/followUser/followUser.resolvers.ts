@@ -26,7 +26,7 @@ const resolver: Resolver = async (
       id: loggedInUser.id,
     },
     data: {
-      followings: {
+      following: {
         connect: {
           userName,
         },

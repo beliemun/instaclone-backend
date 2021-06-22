@@ -1,11 +1,12 @@
+import client from "../client";
 import { Resolvers } from "../types";
 
 const resolvers: Resolvers = {
   User: {
-    totalFollowings: ({ id }, _: any, { client }) =>
+    totalFollowing: ({ id }, _: any, { client }) =>
       client.user.count({ where: { followers: { some: { id } } } }),
     totalFollowers: ({ id }, _: any, { client }) =>
-      client.user.count({ where: { followings: { some: { id } } } }),
+      client.user.count({ where: { following: { some: { id } } } }),
     isMe: ({ id }, _: any, { loggedInUser }) => {
       if (!loggedInUser) {
         return false;
@@ -16,13 +17,15 @@ const resolvers: Resolvers = {
       if (!loggedInUser) {
         return false;
       }
-      const followers = await client.user
+      const following = await client.user
         .findUnique({ where: { userName: loggedInUser.userName } })
-        .followers({ where: { id } });
-      return followers.length !== 0;
+        .following({ where: { id } });
+      return following.length !== 0;
     },
-    photos: ({ id }, {}, { client }) =>
+    photos: ({ id }, _, { client }) =>
       client.user.findUnique({ where: { id } }).photos(),
+    totalPhotos: ({ id }, _, { client }) =>
+      client.photo.count({ where: { userId: id } }),
   },
 };
 

@@ -1,8 +1,10 @@
 import { Resolver } from "../../types";
 import { protectedResolver } from "../../users/users.utils";
 
-const resolver: Resolver = async (_, __, { loggedInUser, client }) =>
+const resolver: Resolver = async (_, { offset }, { loggedInUser, client }) =>
   client.photo.findMany({
+    take: 2,
+    skip: offset,
     where: {
       OR: [
         {

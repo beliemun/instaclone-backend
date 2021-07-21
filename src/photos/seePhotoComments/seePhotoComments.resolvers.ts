@@ -1,7 +1,9 @@
 import { Resolver } from "../../types";
 
-const resolver: Resolver = (_, { id }, { client }) =>
+const resolver: Resolver = (_, { id, offset }, { client }) =>
   client.comment.findMany({
+    take: 2,
+    skip: offset,
     where: {
       photoId: id,
     },
@@ -9,11 +11,7 @@ const resolver: Resolver = (_, { id }, { client }) =>
       createdAt: "asc",
     },
     include: {
-      user: {
-        select: {
-          userName: true,
-        },
-      },
+      user: true,
     },
   });
 

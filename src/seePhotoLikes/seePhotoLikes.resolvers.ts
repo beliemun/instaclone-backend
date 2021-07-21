@@ -7,6 +7,9 @@ const resolver: Resolver = async (_, { id, offset }, { client }) => {
     where: {
       photoId: id,
     },
+    orderBy: {
+      createdAt: "asc",
+    },
     select: {
       user: true,
     },

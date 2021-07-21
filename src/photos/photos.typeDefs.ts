@@ -18,7 +18,7 @@ export default gql`
   type Hashtag {
     id: Int!
     hashtag: String!
-    photos(page: Int!): [Photo] #필드에도 agrs를 작성할 수 있다.
+    photos: [Photo] #필드에도 agrs를 작성할 수 있다. 원래 > photos(page: Int!): [Photo]
     totalPhotos: Int!
     createdAt: String!
     updatedAt: String!

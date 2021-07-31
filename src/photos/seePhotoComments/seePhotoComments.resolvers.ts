@@ -8,7 +8,7 @@ const resolver: Resolver = (_, { id, offset }, { client }) =>
       photoId: id,
     },
     orderBy: {
-      createdAt: "asc",
+      createdAt: "desc",
     },
     include: {
       user: true,

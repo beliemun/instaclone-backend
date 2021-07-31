@@ -1,4 +1,4 @@
-import { Resolver } from "../types";
+import { Resolver } from "../../types";
 
 const resolver: Resolver = async (_, { id, offset }, { client }) => {
   const likes = await client.like.findMany({

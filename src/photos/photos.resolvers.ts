@@ -17,8 +17,12 @@ const resolvers: Resolvers = {
       client.like.count({ where: { photoId: id } }),
     comments: ({ id }, _, { client }) =>
       client.comment.findMany({
+        take: 2,
         where: {
           photoId: id,
+        },
+        orderBy: {
+          createdAt: "desc",
         },
         include: {
           user: true,

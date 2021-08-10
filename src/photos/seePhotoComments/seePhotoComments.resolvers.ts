@@ -1,9 +1,9 @@
 import { Resolver } from "../../types";
 
-const resolver: Resolver = (_, { id, offset }, { client }) =>
+const resolver: Resolver = (_, { id, offset, take = 2 }, { client }) =>
   client.comment.findMany({
-    take: 2,
     skip: offset,
+    take,
     where: {
       photoId: id,
     },

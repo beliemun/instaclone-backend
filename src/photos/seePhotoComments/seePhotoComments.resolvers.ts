@@ -1,7 +1,8 @@
 import { Resolver } from "../../types";
 
-const resolver: Resolver = (_, { id, offset, take = 2 }, { client }) =>
-  client.comment.findMany({
+const resolver: Resolver = (_, { id, offset, take }, { client }) => {
+  console.log("take:", take);
+  return client.comment.findMany({
     skip: offset,
     take,
     where: {
@@ -14,6 +15,7 @@ const resolver: Resolver = (_, { id, offset, take = 2 }, { client }) =>
       user: true,
     },
   });
+};
 
 export default {
   Query: {

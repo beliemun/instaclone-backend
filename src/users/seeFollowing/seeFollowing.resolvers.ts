@@ -2,8 +2,8 @@ import { Resolvers } from "../../types";
 
 const resolvers: Resolvers = {
   Query: {
-    seeFollowers: async (_: any, { userName, offset, take }, { client }) =>
-      client.user.findUnique({ where: { userName } }).followers({
+    seeFollowing: async (_: any, { userName, offset, take }, { client }) =>
+      client.user.findUnique({ where: { userName } }).following({
         skip: offset,
         take,
         orderBy: {
@@ -11,7 +11,7 @@ const resolvers: Resolvers = {
         },
       }),
 
-    // 페이지 방식일 때 아래와 같이 처리
+    // 페이지 방식일 때 아래와 같이 구현할 수 있다.
     // const ok = await client.user.findUnique({
     //   where: { userName },
     //   select: { id: true },
@@ -22,30 +22,24 @@ const resolvers: Resolvers = {
     //     error: "User not found",
     //   };
     // }
-    // const followers = await client.user
+    // const following = await client.user
     //   .findUnique({ where: { userName } })
-    //   .followers({
+    //   .following({
     //     skip: offset,
     //     take,
     //     orderBy: {
     //       createdAt: "desc",
     //     },
     //   });
-    // .followers({
-    //   skip: (page - 1) * 5,
+    // .following({
+    //   skip: lastId ? 1 : 0,
     //   take: 5,
-    // });
-    // const totalFollowers = await client.user.count({
-    //   where: { following: { some: { userName } } },
+    //   ...(lastId && { cursor: { id: lastId } }),
     // });
     // return {
     //   ok: true,
-    //   followers,
-    // totalPages: Math.ceil(totalFollowers / 5),
+    //   following,
     // };
-    //   const bFollowers = await client.user.findMany({
-    //     where: { following: { some: { userName } } },
-    //   });
   },
 };
 

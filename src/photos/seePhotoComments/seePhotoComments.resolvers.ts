@@ -1,7 +1,6 @@
 import { Resolver } from "../../types";
 
 const resolver: Resolver = (_, { id, offset, take }, { client }) => {
-  console.log("take:", take);
   return client.comment.findMany({
     skip: offset,
     take,

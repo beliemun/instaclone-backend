@@ -43,7 +43,6 @@ const resolver: Resolver = async (root, args, context, info) => {
             id: true,
           },
         });
-        console.log(`loggedInUser.id: ${loggedInUser.id}`);
         return room ? true : false;
       }
     }

@@ -71,6 +71,7 @@ const resolver: Resolver = async (
   pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
   return {
     ok: true,
+    id: roomId,
   };
 };
 

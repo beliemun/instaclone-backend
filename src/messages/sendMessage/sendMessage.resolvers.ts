@@ -8,6 +8,9 @@ const resolver: Resolver = async (
   { loggedInUser, client }
 ) => {
   let room = null;
+  // 채팅방 리스트를 벗어난 위치(대상유저 프로필 화면 등)에서 메시지를 보낼 경우,
+  // 메시지와 대상유저 아이디로 sendMessage를 호출한다.
+  // 이와 같이 방아이디를 모르는 경우, 유저 아이디로 방을 찾아야한다.
   if (userId) {
     const user = await client.user.findUnique({
       where: {
@@ -23,20 +26,47 @@ const resolver: Resolver = async (
         error: "This user does not exist.",
       };
     }
-    room = await client.room.create({
-      data: {
-        users: {
-          connect: [
-            {
-              id: userId,
+    // 1. 유저 아이디로 방이 존재하는지를 먼저 검사한다.
+    const existingRoom = await client.room.findFirst({
+      where: {
+        AND: [
+          {
+            users: {
+              some: {
+                id: loggedInUser.id,
+              },
             },
-            {
-              id: loggedInUser.id,
+          },
+          {
+            users: {
+              some: {
+                id: userId,
+              },
             },
-          ],
-        },
+          },
+        ],
       },
     });
+    // 2. 방이 존재하면 해당 방을 room에 저장해 놓는다.
+    if (existingRoom) {
+      room = existingRoom;
+    } else {
+      room = await client.room.create({
+        data: {
+          users: {
+            connect: [
+              {
+                id: userId,
+              },
+              {
+                id: loggedInUser.id,
+              },
+            ],
+          },
+        },
+      });
+    }
+    // 방 아이디를 알고 있는 경우 해당 방을 room에 저장한다.
   } else if (roomId) {
     room = await client.room.findUnique({
       where: {
@@ -53,6 +83,7 @@ const resolver: Resolver = async (
       };
     }
   }
+  // 메시지 내용와 발송유저(로그인유저)의 아이디로 메시지를 생성한다.
   const message = await client.message.create({
     data: {
       text,
@@ -68,7 +99,7 @@ const resolver: Resolver = async (
       },
     },
   });
-  pubsub.publish(NEW_MESSAGE, { roomUpdates: { ...message } });
+  pubsub.publish(NEW_MESSAGE, { newMessageUpdate: { ...message } });
   return {
     ok: true,
     id: roomId,

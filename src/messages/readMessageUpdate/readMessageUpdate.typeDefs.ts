@@ -1,7 +1,7 @@
 import { gql } from "apollo-server-core";
 
 export default gql`
-  type Query {
-    seeRooms: [Room!]
+  type Subscription {
+    readMessageUpdate(id: Int!): Room
   }
 `;

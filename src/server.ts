@@ -34,8 +34,8 @@ const apollo = new ApolloServer({
     }
   },
   subscriptions: {
-    // connetionParams는 Http headers이다.
-    // conect를 시도할 때, 단 한번 발생한다.
+    // connetionParams는 Http headers이다. conect를 시도할 때, 단 한번 발생한다.
+    // ws에서 connect 될 때 http Header를 connectionParams로 전달하기 때문에 ws에서도 http 헤더를 사용할 수 있는 것이다.
     onConnect: async ({ token }: { token?: string }) => {
       if (!token) {
         throw new Error("Token not found.");

@@ -4,4 +4,4 @@ const loadedTypes = loadFilesSync(`${__dirname}/**/*.typeDefs.*`);
 const loadedResolvers = loadFilesSync(`${__dirname}/**/*.resolvers.*`);
 
 export const typeDefs = mergeTypeDefs(loadedTypes);
-export const resolvers = mergeResolvers(loadedResolvers);
+export const resolvers = mergeResolvers(loadedResolvers) as any;

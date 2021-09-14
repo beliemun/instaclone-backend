@@ -8,8 +8,7 @@
     "studio": "npx prisma studio",
     "clean": "rm -r build",
     "build": "tsc",
-    "start": "node build/server",
-    "postinstall": "npm run build"
+    "start": "node build/server"
   },
   "repository": {
     "type": "git",

@@ -1,8 +1,8 @@
 require("dotenv").config();
 
-import * as express from "express";
-import * as logger from "morgan";
-import * as http from "http";
+import express from "express";
+import logger from "morgan";
+import http from "http";
 import { ApolloServer } from "apollo-server-express";
 import { typeDefs, resolvers } from "./schema";
 import { getLoggedInUser, protectedResolver } from "./users/users.utils";
@@ -16,7 +16,9 @@ const apollo = new ApolloServer({
     // {req}로 하지 않고, context로 두는 이유는 Http context 또는 websocket context가 될 수 있기 때문이다.
     if (context.req) {
       return {
-        loggedInUser: await getLoggedInUser(context.req.headers.token),
+        loggedInUser: await getLoggedInUser(
+          context.req.headers.token as string
+        ),
         client,
         protectedResolver,
       };

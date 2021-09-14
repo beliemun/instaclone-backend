@@ -7,7 +7,7 @@
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
     "clean": "rm -r build",
-    "build": "babel src --out-dir build",
+    "build": "tsc",
     "start": "node build/server"
   },
   "repository": {

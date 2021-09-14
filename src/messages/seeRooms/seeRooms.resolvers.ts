@@ -10,6 +10,9 @@ const resolver: Resolver = async (_, __, { loggedInUser, client }) =>
         },
       },
     },
+    orderBy: {
+      updatedAt: "desc",
+    },
   });
 
 export default {

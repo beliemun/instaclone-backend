@@ -1,3 +1,4 @@
+import { NetworkFirewall } from "aws-sdk";
 import { NEW_MESSAGE } from "../../constants";
 import pubsub from "../../pubsub";
 import { Resolver } from "../../types";
@@ -99,10 +100,18 @@ const resolver: Resolver = async (
       },
     },
   });
+  await client.room.update({
+    where: {
+      id: room.id,
+    },
+    data: {
+      updatedAt: new Date(),
+    },
+  });
   pubsub.publish(NEW_MESSAGE, { newMessageUpdate: { ...message } });
   return {
     ok: true,
-    id: roomId,
+    id: room.id,
   };
 };
 

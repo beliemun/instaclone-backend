@@ -9,7 +9,7 @@
     "clean": "rm -r build",
     "build": "tsc",
     "start": "node build/server",
-    "postinstall": "yarn build"
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

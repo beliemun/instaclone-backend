@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "dev": "nodemon --exec ts-node src/server --ext ts,js",
     "migrate": "npx prisma migrate dev",
     "studio": "npx prisma studio",
@@ -48,6 +49,7 @@
     "morgan": "^1.10.0"
   },
   "resolutions": {
-    "fs-capacitor": "3.0.0"
+    "fs-capacitor": "^6.2.0",
+    "graphql-upload": "^11.0.0"
   }
 }

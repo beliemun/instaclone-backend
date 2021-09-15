@@ -12,8 +12,8 @@ const apollo = new ApolloServer({
   resolvers,
   // [중요] playground와 introspection은 실제 개발할 때 필요 없으니 꺼야한다.
   // 켜져있을 경우 제 3자가 playground를 통해 backend를 들여다 볼 수 있게 된다.
-  // playground: true, // production 상태에서는 playground가 자동 비활성화 되어 > true
-  // introspection: true, // production 상태에서 Apollo server에서 playground 반영이 허락되지 않아 > true
+  playground: true, // production 상태에서는 playground가 자동 비활성화 되어 > true
+  introspection: true, // production 상태에서 Apollo server에서 playground 반영이 허락되지 않아 > true
   context: async (context) => {
     // 웹소켓 프로토콜(ws://)에는 context가 없다.
     // {req}로 하지 않고, context로 두는 이유는 Http context 또는 websocket context가 될 수 있기 때문이다.

@@ -10,6 +10,8 @@ import client from "./client";
 const apollo = new ApolloServer({
   typeDefs,
   resolvers,
+  // [중요] playground와 introspection은 실제 개발할 때 필요 없으니 꺼야한다.
+  // 켜져있을 경우 제 3자가 playground를 통해 backend를 들여다 볼 수 있게 된다.
   playground: true, // production 상태에서는 playground가 자동 비활성화 되어 > true
   introspection: true, // production 상태에서 Apollo server에서 playground 반영이 허락되지 않아 > true
   context: async (context) => {

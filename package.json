@@ -46,5 +46,8 @@
     "graphql-tools": "^7.0.5",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0"
+  },
+  "resolutions": {
+    "fs-capacitor": "3.0.0"
   }
 }

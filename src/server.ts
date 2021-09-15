@@ -1,3 +1,5 @@
+// DATABASE_URL="postgresql://postgres:randompassword@localhost:5432/instaclone?schema=public"
+
 require("dotenv").config();
 import express from "express";
 import logger from "morgan";
